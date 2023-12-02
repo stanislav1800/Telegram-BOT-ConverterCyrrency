@@ -7,7 +7,7 @@ class ConvertionExeption(Exception):
 
 class CyrrencyConverter:
     @staticmethod
-    def convert(quote = str, base = str, amount = str):
+    def get_price(quote = str, base = str, amount = str):
         if quote == base:
             raise ConvertionExeption(f'Неудалось перевести одинаковые валюты {base}')
 
@@ -24,7 +24,7 @@ class CyrrencyConverter:
         try:
             amount = float(amount)
         except ValueError:
-            raise ConvertionExeption(f'Yеправильно введено число {amount}')
+            raise ConvertionExeption(f'Неправильно введено число {amount}')
 
         r = requests.get(f'https://v6.exchangerate-api.com/v6/deb9e429e53c193552d668fd/pair/{quote_ticker}/{base_ticker}/{amount}')
         total_base = json.loads(r.content)
